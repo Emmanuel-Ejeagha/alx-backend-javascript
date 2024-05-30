@@ -1,6 +1,6 @@
 export default class Currency {
   constructor(code, name) {
-    if (typeof code == 'string') {
+    if (typeof code === 'string') {
       this._code = code;
     }
     if (typeof name === 'string') {
@@ -8,7 +8,7 @@ export default class Currency {
     }
   }
 
-  // Implement getter and setter for code
+  // implement getter and setter for code
   get code() {
     return this._code;
   }
@@ -19,9 +19,9 @@ export default class Currency {
     }
   }
 
-  // Implement getter and seeter for name
+  // Implement getter and setter for name
   get name() {
-    return (this._name = code);
+    return this._name;
   }
 
   set name(name) {
@@ -30,7 +30,7 @@ export default class Currency {
     }
   }
 
-  // This display the curremcy
+  // This display the currency
   displayFullCurrency() {
     return `${this._name} (${this._code})`;
   }
