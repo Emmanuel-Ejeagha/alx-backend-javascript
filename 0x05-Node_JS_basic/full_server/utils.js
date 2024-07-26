@@ -1,10 +1,10 @@
 const { readFile } = require('fs');
 
 function readDatabase(path) {
-  return new Promise((resolve, regret) => {
+  return new Promise((resolve, reject) => {
     readFile(path, (err, data) => {
       if (err) {
-        regret(err);
+        reject(err);
       } else {
         const result = data.toString().split('\n');
         const fields = {};
