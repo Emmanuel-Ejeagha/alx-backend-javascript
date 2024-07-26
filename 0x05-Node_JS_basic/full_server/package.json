@@ -5,19 +5,20 @@
   "main": "index.js",
   "scripts": {
     "lint": "./node_modules/.bin/eslint",
-    "check-lint": "eslint [0-9]*.js",
+    "check-lint": "eslint *.js",
     "test": "jest",
     "dev": "nodemon --exec babel-node --presets babel-preset-env ./server.js ./database.csv"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@babel/preset-env": "^7.23.9",
     "chai-http": "^4.3.0",
-    "expess": "^0.0.1-security",
     "express": "^4.17.1"
   },
   "devDependencies": {
+    "@babel/cli": "^7.23.9",
+    "@babel/core": "^7.24.0",
+    "@babel/preset-env": "^7.24.0",
     "babel-cli": "^6.26.0",
     "babel-preset-env": "^1.7.0",
     "chai": "^4.2.0",
