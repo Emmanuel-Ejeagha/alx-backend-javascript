@@ -1,38 +1,43 @@
-// Reading a file synchronously with Node JS"
 const fs = require('fs');
 
 function countStudents(path) {
   try {
     const data = fs.readFileSync(path, 'utf-8');
-
-    const results = data.split('\n');
-
+    const lines = data.split('\n').filter((line) => line.trim() !== '');
     const fields = {};
-    let count = -1;
-    for (const struct of results) {
-      if (struct !== '') {
-        count += 1;
-        const info = struct.split(',');
-        if (Object.prototype.hasOwnProperty.call(fields, info[3])) {
-          fields[info[3]].push(info[0]);
-        } else {
-          fields[info[3]] = [];
-          fields[info[3]].push(info[0]);
+    let studentCount = 0;
+
+    lines.forEach((line, index) => {
+      if (index > 0) {
+        // Skip header line
+        const parts = line.split(',');
+        if (parts.length === 4) {
+          studentCount += 1;
+          const field = parts[3].trim();
+          const firstname = parts[0].trim();
+
+          if (!fields[field]) {
+            fields[field] = [];
+          }
+          fields[field].push(firstname);
         }
       }
-    }
-    delete fields.field;
-    console.log(`Number of students: ${count}`);
-    const keys = Object.keys(fields);
-    for (const dat of keys) {
-      console.log(
-        `Number of students in ${dat}: ${fields[dat].length}. List: ${fields[
-          dat
-        ].join(', ')}`
-      );
+    });
+
+    console.log(`Number of students: ${studentCount}`);
+    for (const field in fields) {
+      if (fields.hasOwnProperty(field)) {
+        const list = fields[field];
+        console.log(
+          `Number of students in ${field}: ${list.length}. List: ${list.join(
+            ', '
+          )}`
+        );
+      }
     }
   } catch (err) {
     throw new Error('Cannot load the database');
   }
 }
+
 module.exports = countStudents;
