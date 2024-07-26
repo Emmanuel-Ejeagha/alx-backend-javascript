@@ -28,10 +28,14 @@ class StudentsController {
       let [file] = process.argv.slice(2);
       file = file || 'nofile';
 
-      readDatabase(file).then((val) => {
-        const info = `List: ${val[mj].join(', ')}`;
-        response.status(200).send('Cannot load the database');
-      });
+      readDatabase(file)
+        .then((val) => {
+          const info = `List: ${val[mj].join(', ')}`;
+          response.status(200).send(`${info}`);
+        })
+        .catch(() => {
+          response.status(500).send('Cannot load the database');
+        });
     } else {
       response.status(500).send('Major parameter must be CS or SWE');
     }
