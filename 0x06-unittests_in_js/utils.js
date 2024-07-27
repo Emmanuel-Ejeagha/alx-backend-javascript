@@ -1,13 +1,21 @@
-Utils = {
-  calculateNumber: function (type, a, b) {
-    const na = Math.round(a);
-    const nb = Math.round(b);
-    if (type === 'SUM') return na + nb;
-    if (type === 'SUBTRACT') return na - nb;
-    if (type === 'DIVIDE') {
-      if (nb === 0) return 'Error';
-      return na / nb;
+const Utils = {
+  calculateNumber(type, a, b) {
+    const firstInt = Math.round(a);
+    const secondInt = Math.round(b);
+
+    if (type === 'SUBTRACT') {
+      return firstInt - secondInt;
     }
+
+    if (type === 'DIVIDE') {
+      if (secondInt === 0) {
+        return 'Error';
+      }
+      return firstInt / secondInt;
+    }
+
+    return firstInt + secondInt;
   },
 };
+
 module.exports = Utils;
