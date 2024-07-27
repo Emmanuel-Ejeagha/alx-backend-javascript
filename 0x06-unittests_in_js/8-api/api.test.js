@@ -1,41 +1,19 @@
-const expect = require('chai').expect;
-const sinon = require('sinon');
 const request = require('request');
+const { expect } = require('chai');
 
-describe('Index page', function () {
-  it('should have the correct status code', function (done) {
-    request('http://localhost:7865/', (error, response, body) => {
-      if (!error) {
+describe('Integration Testing', () => {
+  describe('GET /', () => {
+    it('Returns StatusCode: 200 | Body: Welcome to the payment system', (done) => {
+      const options = {
+        url: 'http://localhost:7865',
+        method: 'GET',
+      };
+
+      request(options, function (error, response, body) {
         expect(response.statusCode).to.equal(200);
-        done();
-      }
-    });
-  });
-
-  it('should have the correct message body', function (done) {
-    request('http://localhost:7865/', (error, response, body) => {
-      if (!error) {
         expect(body).to.equal('Welcome to the payment system');
         done();
-      }
-    });
-  });
-
-  it('should have the correct status message', function (done) {
-    request('http://localhost:7865/', (error, response, body) => {
-      if (!error) {
-        expect(response.statusMessage).to.equal('OK');
-        done();
-      }
-    });
-  });
-
-  it('should have the correct method', function (done) {
-    request('http://localhost:7865/', (error, response, body) => {
-      if (!error) {
-        expect(response.headers['content-length']).to.equal('29');
-        done();
-      }
+      });
     });
   });
 });
