@@ -1,28 +1,32 @@
-const expect = require('chai').expect;
-const sendPaymentRequestToApi = require('./3-payment.js');
 const sinon = require('sinon');
-const Utils = require('./utils');
+var { expect } = require('chai');
 
-describe('sendPaymentRequestToApi', function () {
+const sendPaymentRequestToApi = require('./5-payment');
+//const Utils = require('./utils');
+
+describe('Hooks.', function () {
+  let spyConsole;
   beforeEach(function () {
-    Utils.calculateNumber = sinon.stub();
-    sinon.spy(console, 'log');
+    // Runs before each test in this block.
+    spyConsole = sinon.spy(console, 'log');
   });
+
   afterEach(function () {
-    sinon.restore();
+    // Runs after each test in this block.
+    spyConsole.restore();
   });
 
-  it('Verify that the console is logging the string The total is: 120', function () {
-    Utils.calculateNumber.returns(120);
+  it('Logs 120 with 100, 20.', () => {
     sendPaymentRequestToApi(100, 20);
-    expect(console.log.calledOnce).to.be.true;
-    expect(console.log.firstCall.args[0]).to.equal('The total is: 120');
+
+    expect(spyConsole.calledOnceWithExactly('The total is: 120')).to.be.true;
+    expect(spyConsole.calledOnce).to.be.true;
   });
 
-  it('Verify that the console is logging the string The total is: 20', function () {
-    Utils.calculateNumber.returns(20);
+  it('Logs 20 with 10, 10.', () => {
     sendPaymentRequestToApi(10, 10);
-    expect(console.log.calledOnce).to.be.true;
-    expect(console.log.firstCall.args[0]).to.equal('The total is: 20');
+
+    expect(spyConsole.calledOnceWithExactly('The total is: 20')).to.be.true;
+    expect(spyConsole.calledOnce).to.be.true;
   });
 });
